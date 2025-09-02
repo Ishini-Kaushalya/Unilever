@@ -138,11 +138,11 @@
                     </a>
 
                     <!-- Reports Icon (Document) -->
-                    <a href="{{ url('reports') }}" 
-                       class="p-3 rounded-lg {{ request()->is('reports*') ? 'sidebar-bg-active' : 'sidebar-bg' }}"
-                       id="reports-icon">
+                    <a href="{{ route('departments') }}" 
+                       class="p-3 rounded-lg {{ request()->is('departments*') ? 'sidebar-bg-active' : 'sidebar-bg' }}"
+                       id="departments-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" 
-                             class="h-8 w-8 {{ request()->is('reports*') ? 'sidebar-icon-active' : 'sidebar-icon' }}" 
+                             class="h-8 w-8 {{ request()->is('departments*') ? 'sidebar-icon-active' : 'sidebar-icon' }}" 
                              fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
                                   d="M3 7h5l2 2h11v9a2 2 0 01-2 2H3V7z"/>
@@ -175,75 +175,76 @@
     </div>
 
     <script>
-        function toggleDropdown() {
-            const dropdown = document.getElementById('dropdown');
-            dropdown.classList.toggle('hidden');
+    function toggleDropdown() {
+        const dropdown = document.getElementById('dropdown');
+        dropdown.classList.toggle('hidden');
+    }
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+        const dropdown = document.getElementById('dropdown');
+        const profileButton = document.querySelector('.relative button');
+        
+        if (!dropdown.classList.contains('hidden') && 
+            !dropdown.contains(event.target) && 
+            !profileButton.contains(event.target)) {
+            dropdown.classList.add('hidden');
+        }
+    });
+    
+    // Handle sidebar icon clicks
+    document.addEventListener('DOMContentLoaded', function() {
+        const dashboardIcon = document.getElementById('dashboard-icon');
+        const userIcon = document.getElementById('user-icon');
+        const departmentsIcon = document.getElementById('departments-icon'); // ✅ fixed name
+        
+        function setAllIconsInactive() {
+            dashboardIcon.classList.remove('sidebar-bg-active');
+            dashboardIcon.classList.add('sidebar-bg');
+            userIcon.classList.remove('sidebar-bg-active');
+            userIcon.classList.add('sidebar-bg');
+            departmentsIcon.classList.remove('sidebar-bg-active');
+            departmentsIcon.classList.add('sidebar-bg');
+            
+            dashboardIcon.querySelector('svg').classList.remove('sidebar-icon-active');
+            dashboardIcon.querySelector('svg').classList.add('sidebar-icon');
+            userIcon.querySelector('svg').classList.remove('sidebar-icon-active');
+            userIcon.querySelector('svg').classList.add('sidebar-icon');
+            departmentsIcon.querySelector('svg').classList.remove('sidebar-icon-active');
+            departmentsIcon.querySelector('svg').classList.add('sidebar-icon');
         }
         
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function(event) {
-            const dropdown = document.getElementById('dropdown');
-            const profileButton = document.querySelector('.relative button');
-            
-            if (!dropdown.classList.contains('hidden') && 
-                !dropdown.contains(event.target) && 
-                !profileButton.contains(event.target)) {
-                dropdown.classList.add('hidden');
-            }
+        function setIconActive(iconElement) {
+            setAllIconsInactive();
+            iconElement.classList.remove('sidebar-bg');
+            iconElement.classList.add('sidebar-bg-active');
+            iconElement.querySelector('svg').classList.remove('sidebar-icon');
+            iconElement.querySelector('svg').classList.add('sidebar-icon-active');
+        }
+        
+        const currentRoute = window.location.pathname;
+        
+        if (currentRoute.includes('dashboard')) {
+            setIconActive(dashboardIcon);
+        } else if (currentRoute.includes('users/create')) {
+            setIconActive(userIcon);
+        } else if (currentRoute.includes('departments')) {
+            setIconActive(departmentsIcon);
+        }
+        
+        dashboardIcon.addEventListener('click', function() {
+            setIconActive(dashboardIcon);
         });
         
-        // Handle sidebar icon clicks
-        document.addEventListener('DOMContentLoaded', function() {
-            const dashboardIcon = document.getElementById('dashboard-icon');
-            const userIcon = document.getElementById('user-icon');
-            const reportsIcon = document.getElementById('reports-icon');
-            
-            function setAllIconsInactive() {
-                dashboardIcon.classList.remove('sidebar-bg-active');
-                dashboardIcon.classList.add('sidebar-bg');
-                userIcon.classList.remove('sidebar-bg-active');
-                userIcon.classList.add('sidebar-bg');
-                reportsIcon.classList.remove('sidebar-bg-active');
-                reportsIcon.classList.add('sidebar-bg');
-                
-                dashboardIcon.querySelector('svg').classList.remove('sidebar-icon-active');
-                dashboardIcon.querySelector('svg').classList.add('sidebar-icon');
-                userIcon.querySelector('svg').classList.remove('sidebar-icon-active');
-                userIcon.querySelector('svg').classList.add('sidebar-icon');
-                reportsIcon.querySelector('svg').classList.remove('sidebar-icon-active');
-                reportsIcon.querySelector('svg').classList.add('sidebar-icon');
-            }
-            
-            function setIconActive(iconElement) {
-                setAllIconsInactive();
-                iconElement.classList.remove('sidebar-bg');
-                iconElement.classList.add('sidebar-bg-active');
-                iconElement.querySelector('svg').classList.remove('sidebar-icon');
-                iconElement.querySelector('svg').classList.add('sidebar-icon-active');
-            }
-            
-            const currentRoute = window.location.pathname;
-            
-            if (currentRoute.includes('dashboard')) {
-                setIconActive(dashboardIcon);
-            } else if (currentRoute.includes('users/create')) {
-                setIconActive(userIcon);
-            } else if (currentRoute.includes('reports')) {
-                setIconActive(reportsIcon);
-            }
-            
-            dashboardIcon.addEventListener('click', function() {
-                setIconActive(dashboardIcon);
-            });
-            
-            userIcon.addEventListener('click', function() {
-                setIconActive(userIcon);
-            });
-            
-            reportsIcon.addEventListener('click', function() {
-                setIconActive(reportsIcon);
-            });
+        userIcon.addEventListener('click', function() {
+            setIconActive(userIcon);
         });
-    </script>
+        
+        departmentsIcon.addEventListener('click', function() {
+            setIconActive(departmentsIcon);
+        });
+    });
+</script>
+
 </body>
 </html>
