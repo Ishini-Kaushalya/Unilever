@@ -52,30 +52,28 @@
         }
 
         /* Rounded input fields with light borders */
-input[type="text"],
-input[type="email"],
+        input[type="text"],
+        input[type="email"],
+        select {
+            border: 1px solid #dcdcdc; /* light gray border instead of black */
+            border-radius: 12px;        /* more curved shape */
+            padding: 0.5rem 0.75rem;    /* adjust padding for comfort */
+            outline: none;              /* remove focus outline */
+            transition: border 0.2s ease;
+        }
 
-select {
-    border: 1px solid #dcdcdc; /* light gray border instead of black */
-    border-radius: 12px;        /* more curved shape */
-    padding: 0.5rem 0.75rem;    /* adjust padding for comfort */
-    outline: none;              /* remove focus outline */
-    transition: border 0.2s ease;
-}
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        select:focus {
+            border-color: #a78bfa;      /* subtle purple on focus */
+            box-shadow: 0 0 5px rgba(167,139,250,0.3);
+        }
 
-input[type="text"]:focus,
-input[type="email"]:focus,
-select:focus {
-    border-color: #a78bfa;      /* subtle purple on focus */
-    box-shadow: 0 0 5px rgba(167,139,250,0.3);
-}
-
-/* Center Add button */
-form .mt-6 {
-    display: flex;
-    justify-content: center;
-}
-
+        /* Center Add button */
+        form .mt-6 {
+            display: flex;
+            justify-content: center;
+        }
     </style>
 </head>
 <body class="font-sans antialiased bg-[#f0ebf8]">
@@ -129,16 +127,15 @@ form .mt-6 {
                 <aside class="w-20 bg-[#d2c7f0] text-white flex flex-col items-center py-6 space-y-8 sidebar-spacing rounded-lg h-[calc(100vh-7rem)] self-start sticky top-24">
                     
                     <!-- Dashboard Icon -->
-<a href="{{ route('dashboard') }}" 
-   class="p-3 rounded-lg {{ request()->routeIs('dashboard') ? 'sidebar-bg-active' : 'sidebar-bg' }}"
-   id="dashboard-icon">
-    <svg xmlns="http://www.w3.org/2000/svg" 
-         class="h-8 w-8 {{ request()->routeIs('dashboard') ? 'sidebar-icon-active' : 'sidebar-icon' }}" 
-         fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0h6"/>
-    </svg>
-</a>
-
+                    <a href="{{ route('dashboard') }}" 
+                       class="p-3 rounded-lg {{ request()->routeIs('dashboard') ? 'sidebar-bg-active' : 'sidebar-bg' }}"
+                       id="dashboard-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" 
+                             class="h-8 w-8 {{ request()->routeIs('dashboard') ? 'sidebar-icon-active' : 'sidebar-icon' }}" 
+                             fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0h6"/>
+                        </svg>
+                    </a>
 
                     <!-- Reports Icon (Document) -->
                     <a href="{{ url('reports') }}" 
@@ -153,17 +150,17 @@ form .mt-6 {
                     </a>
 
                     <!-- Add User Icon -->
-<a href="{{ route('users.create') }}" 
-   class="p-3 rounded-lg {{ request()->routeIs('users.create') ? 'sidebar-bg-active' : 'sidebar-bg' }}"
-   id="user-icon">
-    <svg xmlns="http://www.w3.org/2000/svg" 
-         class="h-8 w-8 {{ request()->routeIs('users.create') ? 'sidebar-icon-active' : 'sidebar-icon' }}" 
-         fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/>
-        <circle cx="9" cy="7" r="4"/>
-        <path d="M19 8v6m3-3h-6"/>
-    </svg>
-</a>
+                    <a href="{{ route('users.create') }}" 
+                       class="p-3 rounded-lg {{ request()->routeIs('users.create') ? 'sidebar-bg-active' : 'sidebar-bg' }}"
+                       id="user-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" 
+                             class="h-8 w-8 {{ request()->routeIs('users.create') ? 'sidebar-icon-active' : 'sidebar-icon' }}" 
+                             fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M19 8v6m3-3h-6"/>
+                        </svg>
+                    </a>
 
                 </aside>
             </div>
@@ -171,69 +168,8 @@ form .mt-6 {
             <!-- Main Content -->
             <div class="flex-1 flex flex-col main-content">
                 <main class="flex-1 p-8">
-    <div class="flex justify-start">
-        <div class="w-full max-w-lg p-8 rounded-lg">
-            <h2 class="text-2xl font-bold mb-6">Add Users</h2>
-
-            @if(session('success'))
-                <div class="bg-green-100 text-green-700 p-3 rounded mb-4">
-                    {{ session('success') }}
-                </div>
-            @endif
-
-            <form action="{{ route('users.store') }}" method="POST">
-                @csrf
-
-                <div class="mb-4">
-                    <label class="block mb-2">Name</label>
-                    <input type="text" name="name" class="w-full border rounded p-2" required>
-                </div>
-
-                <div class="mb-4">
-                    <label class="block mb-2">Email</label>
-                    <input type="email" name="email" class="w-full border rounded p-2" required>
-                </div>
-
-                <div class="mb-4">
-                    <label class="block mb-2">Tel. No</label>
-                    <input type="text" name="tel_no" class="w-full border rounded p-2">
-                </div>
-
-               <div class="mb-4">
-    <label class="block mb-2">Department</label>
-    <select name="department" 
-            class="w-full border border-gray-300 rounded-xl p-2 appearance-none focus:outline-none focus:border-purple-400 focus:shadow-md" 
-            required>
-        <option value="">Select Department</option>
-        <option value="HR">HR</option>
-        <option value="Finance">Finance</option>
-        <option value="IT">IT</option>
-        <option value="Sales">Sales</option>
-    </select>
-</div>
-
-
-                <div class="mb-4">
-                    <label class="block mb-2">Role</label>
-                    <select name="role" class="w-full border border-gray-300 rounded-xl p-2 appearance-none focus:outline-none focus:border-purple-400 focus:shadow-md" 
-            required>
-                        <option value="">Select Role</option>
-                        <option value="admin">Admin</option>
-                        <option value="manager">Manager</option>
-                        <option value="staff">Staff</option>
-                    </select>
-                </div>
-
-                <div class="mt-6">
-                    <button type="submit" class="bg-purple-600 text-white px-6 py-2 rounded-xl p-2  hover:bg-purple-700">
-                        Add
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</main>
-
+                    @yield('content')
+                </main>
             </div>
         </div>
     </div>
