@@ -20,9 +20,9 @@
             </svg>
         </a>
 
-        <!-- Reports Icon -->
-        <a href="{{ url('reports') }}" 
-           class="p-3 rounded-lg hover:bg-purple-700 {{ request()->is('reports*') ? 'bg-purple-700' : '' }}">
+        <!-- Departments Icon -->
+        <a href="{{ url('departments') }}" 
+           class="p-3 rounded-lg hover:bg-purple-700 {{ request()->is('departments*') ? 'bg-purple-700' : '' }}">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                       d="M9 17v-6h6v6m2 4H7a2 2 0 01-2-2V7a2 2 0 012-2h2l2-2h2l2 2h2a2 2 0 012 2v12a2 2 0 01-2 2z"/>
