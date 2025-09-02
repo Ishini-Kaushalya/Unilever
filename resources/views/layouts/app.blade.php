@@ -50,6 +50,32 @@
         .sidebar-bg-active {
             background-color: #d2c7f0; /* Less bright background for active icon */
         }
+
+        /* Rounded input fields with light borders */
+input[type="text"],
+input[type="email"],
+
+select {
+    border: 1px solid #dcdcdc; /* light gray border instead of black */
+    border-radius: 12px;        /* more curved shape */
+    padding: 0.5rem 0.75rem;    /* adjust padding for comfort */
+    outline: none;              /* remove focus outline */
+    transition: border 0.2s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+select:focus {
+    border-color: #a78bfa;      /* subtle purple on focus */
+    box-shadow: 0 0 5px rgba(167,139,250,0.3);
+}
+
+/* Center Add button */
+form .mt-6 {
+    display: flex;
+    justify-content: center;
+}
+
     </style>
 </head>
 <body class="font-sans antialiased bg-[#f0ebf8]">
@@ -103,17 +129,16 @@
                 <aside class="w-20 bg-[#d2c7f0] text-white flex flex-col items-center py-6 space-y-8 sidebar-spacing rounded-lg h-[calc(100vh-7rem)] self-start sticky top-24">
                     
                     <!-- Dashboard Icon -->
-                    <a href="{{ route('dashboard') }}" 
-                       class="p-3 rounded-lg {{ request()->routeIs('dashboard') ? 'sidebar-bg-active' : 'sidebar-bg' }}"
-                       id="dashboard-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" 
-                             class="h-8 w-8 {{ request()->routeIs('dashboard') ? 'sidebar-icon-active' : 'sidebar-icon' }}" 
-                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <rect x="3" y="3" width="12" height="8" stroke-width="2" rx="2" ry="2"/>
-                            <rect x="3" y="13" width="5" height="5" stroke-width="2" rx="1" ry="1"/>
-                            <rect x="10" y="13" width="5" height="5" stroke-width="2" rx="1" ry="1"/>
-                        </svg>
-                    </a>
+<a href="{{ route('dashboard') }}" 
+   class="p-3 rounded-lg {{ request()->routeIs('dashboard') ? 'sidebar-bg-active' : 'sidebar-bg' }}"
+   id="dashboard-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" 
+         class="h-8 w-8 {{ request()->routeIs('dashboard') ? 'sidebar-icon-active' : 'sidebar-icon' }}" 
+         fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0h6"/>
+    </svg>
+</a>
+
 
                     <!-- Reports Icon (Document) -->
                     <a href="{{ url('reports') }}" 
@@ -128,20 +153,18 @@
                     </a>
 
                     <!-- Add User Icon -->
-                    <a href="{{ route('users.create') }}" 
-                       class="p-3 rounded-lg {{ request()->routeIs('users.create') ? 'sidebar-bg-active' : 'sidebar-bg' }}"
-                       id="user-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" 
-                             class="h-8 w-8 {{ request()->routeIs('users.create') ? 'sidebar-icon-active' : 'sidebar-icon' }}" 
-                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <!-- Three people -->
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                  d="M5.5 17a4.5 4.5 0 019 0M3 20v-1a5 5 0 0110 0v1M16 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                            <!-- Plus sign -->
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                  d="M19 8v6m3-3h-6"/>
-                        </svg>
-                    </a>
+<a href="{{ route('users.create') }}" 
+   class="p-3 rounded-lg {{ request()->routeIs('users.create') ? 'sidebar-bg-active' : 'sidebar-bg' }}"
+   id="user-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" 
+         class="h-8 w-8 {{ request()->routeIs('users.create') ? 'sidebar-icon-active' : 'sidebar-icon' }}" 
+         fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M19 8v6m3-3h-6"/>
+    </svg>
+</a>
+
                 </aside>
             </div>
 
@@ -176,20 +199,24 @@
                     <input type="text" name="tel_no" class="w-full border rounded p-2">
                 </div>
 
-                <div class="mb-4">
-                    <label class="block mb-2">Department</label>
-                    <select name="department" class="w-full border rounded p-2" required>
-                        <option value="">Select Department</option>
-                        <option value="HR">HR</option>
-                        <option value="Finance">Finance</option>
-                        <option value="IT">IT</option>
-                        <option value="Sales">Sales</option>
-                    </select>
-                </div>
+               <div class="mb-4">
+    <label class="block mb-2">Department</label>
+    <select name="department" 
+            class="w-full border border-gray-300 rounded-xl p-2 appearance-none focus:outline-none focus:border-purple-400 focus:shadow-md" 
+            required>
+        <option value="">Select Department</option>
+        <option value="HR">HR</option>
+        <option value="Finance">Finance</option>
+        <option value="IT">IT</option>
+        <option value="Sales">Sales</option>
+    </select>
+</div>
+
 
                 <div class="mb-4">
                     <label class="block mb-2">Role</label>
-                    <select name="role" class="w-full border rounded p-2" required>
+                    <select name="role" class="w-full border border-gray-300 rounded-xl p-2 appearance-none focus:outline-none focus:border-purple-400 focus:shadow-md" 
+            required>
                         <option value="">Select Role</option>
                         <option value="admin">Admin</option>
                         <option value="manager">Manager</option>
@@ -198,7 +225,7 @@
                 </div>
 
                 <div class="mt-6">
-                    <button type="submit" class="bg-purple-600 text-white px-6 py-2 rounded hover:bg-purple-700">
+                    <button type="submit" class="bg-purple-600 text-white px-6 py-2 rounded-xl p-2  hover:bg-purple-700">
                         Add
                     </button>
                 </div>
