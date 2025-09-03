@@ -8,11 +8,20 @@ use App\Models\Department;
 class MaintenanceController extends Controller
 {
     public function index(Department $department, $status)
-    {
-        // You can later fetch actual records by status
-        return view('maintenance.index', [
-            'department' => $department,
-            'status' => ucfirst($status),
-        ]);
-    }
+{
+    // Decide the maintenance type based on the status or any logic you want
+    $maintenanceType = match(strtolower($status)) {
+        'new' => 'New',
+        'active' => 'Active',
+        'rectified' => 'Rectified',
+        default => 'Unknown',
+    };
+
+    return view('maintenance.index', [
+        'department' => $department,
+        'status' => ucfirst($status),
+        'maintenanceType' => $maintenanceType, // ✅ Now defined
+    ]);
+}
+
 }
