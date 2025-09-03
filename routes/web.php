@@ -26,9 +26,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
     Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // Profile view
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+
+    // Profile edit form
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/departments', [DepartmentController::class, 'index'])->name('departments');
     Route::get('/departments/{department}', [DepartmentController::class, 'show'])->name('departments.show');
     Route::get('/departments/{department}/maintenance/{status}', [MaintenanceController::class, 'index'])->name('departments.maintenance.index');
