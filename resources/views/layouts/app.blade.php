@@ -79,7 +79,7 @@
 <body class="font-sans antialiased bg-[#f0ebf8]">
     <div class="min-h-screen flex flex-col">
         <!-- Top Navbar - Full width -->
-        <header class="bg-[#d2c7f0] text-white full-width-navbar">
+        <header class="bg-[#d2c7f0] text-black full-width-navbar">
             <div class="flex justify-between items-center px-6 py-4 shadow navbar-container">
                 <!-- Left: Logo -->
                 <div class="flex items-center space-x-3">
