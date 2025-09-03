@@ -5,25 +5,28 @@
     <!-- Title -->
     <h1 class="text-2xl font-semibold text-gray-800 mb-6">{{ $department->name }}</h1>
 
-    <!-- Maintenance Cards -->
-    <div class="space-y-6">
+    <!-- Maintenance Buttons -->
+    <div class="grid grid-cols-3 sm:grid-cols-1 gap-6">
         <!-- New Maintenance -->
-        <div class="bg-white shadow rounded-lg p-6">
+        <a href="{{ route('departments.maintenance.index', [$department->id, 'new']) }}"
+           class="block w-96 bg-white shadow rounded-lg p-2 hover:bg-gray-100 text-center">
             <p class="text-gray-700 font-medium">New Maintenance</p>
             <p class="text-2xl font-bold mt-2">{{ $data['new'] }}</p>
-        </div>
+        </a>
 
         <!-- Active Maintenance -->
-        <div class="bg-white shadow rounded-lg p-6">
+        <a href="{{ route('departments.maintenance.index', [$department->id, 'active']) }}"
+           class="block w-96 bg-white shadow rounded-lg p-2 hover:bg-gray-100 text-center">
             <p class="text-gray-700 font-medium">Active Maintenance</p>
             <p class="text-2xl font-bold mt-2">{{ $data['active'] }}</p>
-        </div>
+        </a>
 
         <!-- Rectified Maintenance -->
-        <div class="bg-white shadow rounded-lg p-6">
+        <a href="{{ route('departments.maintenance.index', [$department->id, 'rectified']) }}"
+           class="block w-96 bg-white shadow rounded-lg p-2 hover:bg-gray-100 text-center">
             <p class="text-gray-700 font-medium">Rectified Maintenance</p>
             <p class="text-2xl font-bold mt-2">{{ $data['rectified'] }}</p>
-        </div>
+        </a>
     </div>
 </div>
 @endsection
